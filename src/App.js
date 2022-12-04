@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useContext } from "react";
+import "./App.css";
+import Feed from "./components/body/Feed";
+import { Auth } from "./components/body/Login/Auth";
+import Login from "./components/body/Login/Login";
+import Sidebar from "./components/body/Sidebar";
+import Header from "./components/Header/Header";
 
 function App() {
+  const { user } = useContext(Auth);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      {!user ? (
+        <Login />
+      ) : (
+        <>
+          <Header />
+          <div className="app_body">
+            <Sidebar />
+            <Feed />
+            {/* <Widgets /> */}
+          </div>
+        </>
+      )}
     </div>
   );
 }
